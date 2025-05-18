@@ -13,10 +13,34 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// 포맷 설정: Shift + Alt + F
 model User {
-  id        String @id
-  email     String
+  id        String   @id @default(uuid())
+  email     String   @unique
   firstName String
   lastName  String
   address   String
+  createdAt DateTime @default(now())
+  updateAt  DateTime @updatedAt
+}
+
+model Product {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  category    Category
+  price       Float
+  stock       Int
+  createAt    DateTime @default(now())
+  updateAt    DateTime @updatedAt
+}
+
+enum Category {
+  FASHION
+  BEAUTY
+  SPORTS
+  ELECTRONICS
+  HOME_INTERIOR
+  HOUSEHOLD_SUPPLIES
+  KITCHENWARE
 }
